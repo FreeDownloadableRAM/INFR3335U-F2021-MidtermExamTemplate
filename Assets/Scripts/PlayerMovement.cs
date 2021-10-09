@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     //private float jumpForce; we arent jumping in this game
     private float dirX, dirZ, dirY;
 
+    //rotation
+    //private float rotx, roty, rotz, rotw;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,12 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = 3f;
         //jumpForce = 50f;
         rb = GetComponent<Rigidbody>();
+        //rotx = 0;
+        //roty = 0;
+        //rotz = 0;
+        //rotw = 0;
 
+        //transform.rotation = new Quaternion(rotx, roty, rotz, rotw);
     }
 
     // Update is called once per frame
@@ -30,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         dirZ = Input.GetAxis("Horizontal") * moveSpeed;
         dirX = Input.GetAxis("Vertical") * moveSpeed;
 
+       
 
         /*
         if (Input.GetKeyDown("space"))
@@ -43,7 +51,33 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene("Start");
         }
+        //transform.Rotate(rotx, roty, rotz);, y was 1st attempt
+        //4 directions for movement, set rotation angle for each key pressed
 
+        if (Input.GetKeyDown(KeyCode.UpArrow)) //Face away from camera
+        {
+            //roty = 91;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) //Face toward the camera
+        {
+            //roty = 1;
+            transform.rotation = Quaternion.Euler(0, 270, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) //Face to the right
+        {
+            //roty = 179;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) //Face to the left
+        {
+            //roty = 1;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        //update rotation
+        //transform.rotation = new Quaternion(rotx, roty, rotz, rotw);
+        //transform.Rotate(rotx, roty, rotz);
 
     }
 
@@ -52,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
         //velocity update
         rb.velocity = new Vector3(dirX, rb.velocity.y, -dirZ);
 
+        //reset to face forward
+        //roty = 0;
     }
 
     //enemy collision, go to gameover screen
