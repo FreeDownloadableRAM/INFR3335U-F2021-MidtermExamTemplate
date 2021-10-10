@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     //coin counter
     private int coinsCollected;
 
+    //get audio component
+    AudioSource audioData; //plays the clip in the component
+
     //rotation
     //private float rotx, roty, rotz, rotw;
 
@@ -29,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
         //roty = 0;
         //rotz = 0;
         //rotw = 0;
+
+        //Get sound stuff
+        audioData = GetComponent<AudioSource>();
 
         //transform.rotation = new Quaternion(rotx, roty, rotz, rotw);
     }
@@ -108,6 +114,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(col.gameObject); //destroy the coin
             coinsCollected = coinsCollected + 1;
+
+            //Play jump Sound
+            audioData.Play(0);
         }
 
     }
