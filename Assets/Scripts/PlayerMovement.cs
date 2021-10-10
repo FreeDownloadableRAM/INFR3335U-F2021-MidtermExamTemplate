@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     //private float jumpForce; we arent jumping in this game
     private float dirX, dirZ, dirY;
 
+    //coin counter
+    private int coinsCollected;
+
     //rotation
     //private float rotx, roty, rotz, rotw;
 
@@ -20,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = 3f;
         //jumpForce = 50f;
         rb = GetComponent<Rigidbody>();
+        //set starting coin amount to zero
+        coinsCollected = 0;
         //rotx = 0;
         //roty = 0;
         //rotz = 0;
@@ -37,14 +42,12 @@ public class PlayerMovement : MonoBehaviour
         dirZ = Input.GetAxis("Horizontal") * moveSpeed;
         dirX = Input.GetAxis("Vertical") * moveSpeed;
 
-       
-
-        /*
-        if (Input.GetKeyDown("space"))
+        //Check Win Condition
+        if (coinsCollected == 10)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            SceneManager.LoadScene("End");
         }
-        */
+
 
         //if escape key is hit, go to main menu, and from there they can quit the game
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -99,6 +102,14 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene("End");
         }
+        //if touch a coin
+
+        if (col.gameObject.tag == "Coin")
+        {
+            Destroy(col.gameObject); //destroy the coin
+            coinsCollected = coinsCollected + 1;
+        }
+
     }
 
 }
